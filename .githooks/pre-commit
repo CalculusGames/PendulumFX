@@ -11,7 +11,15 @@ if ! command -v clang-format >/dev/null 2>&1; then
 fi
 
 # Get list of staged files (Added, Copied, Modified, Renamed, TypeChanged)
-mapfile -t files < <(git diff --cached --name-only --diff-filter=ACMRT | grep -E '\.(c|cpp|h|hpp)$' || true)
+if command -v mapfile >/dev/null 2>&1; then
+	mapfile -t files < <(git diff --cached --name-only --diff-filter=ACMRT | grep -E '\.(c|cpp|h|hpp)$' || true)
+else
+	# Fallback for systems without mapfile (like older bash versions)
+	files=()
+	while IFS= read -r line; do
+		files+=("$line")
+	done < <(git diff --cached --name-only --diff-filter=ACMRT | grep -E '\.(c|cpp|h|hpp)$' || true)
+fi
 
 if [[ ${#files[@]} -eq 0 ]]; then
   exit 0
