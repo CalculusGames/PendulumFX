@@ -10,6 +10,9 @@ on:
 
 jobs:
   format:
+    permissions:
+      contents: read
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -45,6 +48,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
+      - name: Install cmdfx
+        run: curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
       - name: Configure Project
         run: cmake -B build
       - name: Build Project

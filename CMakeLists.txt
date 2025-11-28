@@ -16,7 +16,9 @@ set_target_properties(PendulumFX PROPERTIES
 )
 
 # Libraries
-target_link_libraries(PendulumFX PRIVATE cmdfx)
+find_package(cmdfx REQUIRED)
+message(STATUS "Found cmdfx: ${cmdfx_DIR}")
+target_link_libraries(PendulumFX PRIVATE cmdfx::cmdfx)
 if(UNIX)
 	target_link_libraries(PendulumFX PRIVATE m)
 endif()
