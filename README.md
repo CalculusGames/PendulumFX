@@ -2,6 +2,8 @@
 
 > Advanced multi-pendulum physics simulation powered by cmdfx
 
+![Preview](./docs/pendulumfx.gif)
+
 A real-time terminal-based pendulum simulation that supports single and multi-pendulum systems with accurate physics modeling, including precise double-pendulum equations and approximated multi-body dynamics for chains of 3+ pendulums.
 
 ## Features

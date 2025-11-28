@@ -5,4 +5,5 @@
 *.jpg binary
 *.ico binary
 *.icns binary
+*.gif binary
 .gitmodules     text eol=lf
