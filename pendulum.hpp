@@ -256,7 +256,6 @@ class Pendulum {
                 double li = pendulums[i]->length;
                 double mi = pendulums[i]->mass;
                 double thetai = pendulums[i]->angle;
-                double omegai = pendulums[i]->angularVelocity;
 
                 // base gravitational acceleration
                 double accel = (-gravity / li) * sin(thetai);
