@@ -1,0 +1,51 @@
+name: Build Project
+
+on:
+  push:
+    branches: [master, ver/*]
+  pull_request:
+    branches: [master, ver/*]
+
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Clang Tools
+        run: |
+          pip install clang-tools
+          clang-tools --install 21 --tool clang-format
+          clang-format --version
+      - name: Check Formatting
+        run: bash check-format.sh
+
+  build:
+    needs: format
+    timeout-minutes: 180
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          [
+            ubuntu-24.04,
+            ubuntu-24.04-arm,
+            windows-2025,
+            macos-15-intel,
+            macos-15,
+          ]
+
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Configure Project
+        run: cmake -B build
+      - name: Build Project
+        run: cmake --build build
