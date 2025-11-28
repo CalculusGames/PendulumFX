@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install cmdfx
-        run: curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
+        run: curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-kn --shallow
       - name: Configure Project
         run: cmake -B build
       - name: Build Project
